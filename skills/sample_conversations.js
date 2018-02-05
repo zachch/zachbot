@@ -11,6 +11,7 @@ through the conversation are chosen based on the user's response.
 
 module.exports = function(controller) {
 
+    controller.api.messenger_profile.greeting('Hello there pretty');
     controller.hears(['color'], 'message_received', function(bot, message) {
 
         bot.startConversation(message, function(err, convo) {
