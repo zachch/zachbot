@@ -11,83 +11,83 @@ through the conversation are chosen based on the user's response.
 
 module.exports = function(controller) {
 
-    controller.api.messenger_profile.greeting('Hello there pretty');
-    controller.hears(['color'], 'message_received', function(bot, message) {
+  controller.api.messenger_profile.greeting('Hello there pretty');
+  controller.hears(['color'], 'message_received', function(bot, message) {
 
-        bot.startConversation(message, function(err, convo) {
-            convo.say('This is an example of using convo.ask with a single callback.');
+    bot.startConversation(message, function(err, convo) {
+      convo.say('This is an example of using convo.ask with a single callback.');
 
-            convo.ask('What is your favorite color?', function(response, convo) {
+      convo.ask('What is your favorite color?', function(response, convo) {
 
-                convo.say('Cool, I like ' + response.text + ' too!');
-                convo.next();
+        convo.say('Cool, I like ' + response.text + ' too!');
+        convo.next();
 
-            });
-        });
-
+      });
     });
 
+  });
 
-    controller.hears(['question'], 'message_received', function(bot, message) {
 
-        bot.createConversation(message, function(err, convo) {
+  controller.hears(['question'], 'message_received', function(bot, message) {
 
-            // create a path for when a user says YES
-            convo.addMessage({
-                    text: 'How wonderful.',
-            },'yes_thread');
+    bot.createConversation(message, function(err, convo) {
 
-            // create a path for when a user says NO
-            // mark the conversation as unsuccessful at the end
-            convo.addMessage({
-                text: 'Cheese! It is not for everyone.',
-                action: 'stop', // this marks the converation as unsuccessful
-            },'no_thread');
+      // create a path for when a user says YES
+      convo.addMessage({
+        text: 'How wonderful.',
+      },'yes_thread');
 
-            // create a path where neither option was matched
-            // this message has an action field, which directs botkit to go back to the `default` thread after sending this message.
-            convo.addMessage({
-                text: 'Sorry I did not understand. Say `yes` or `no`',
-                action: 'default',
-            },'bad_response');
+      // create a path for when a user says NO
+      // mark the conversation as unsuccessful at the end
+      convo.addMessage({
+        text: 'Cheese! It is not for everyone.',
+        action: 'stop', // this marks the converation as unsuccessful
+      },'no_thread');
 
-            // Create a yes/no question in the default thread...
-            convo.ask('Do you like cheese?', [
-                {
-                    pattern:  bot.utterances.yes,
-                    callback: function(response, convo) {
-                        convo.gotoThread('yes_thread');
-                    },
-                },
-                {
-                    pattern:  bot.utterances.no,
-                    callback: function(response, convo) {
-                        convo.gotoThread('no_thread');
-                    },
-                },
-                {
-                    default: true,
-                    callback: function(response, convo) {
-                        convo.gotoThread('bad_response');
-                    },
-                }
-            ]);
+      // create a path where neither option was matched
+      // this message has an action field, which directs botkit to go back to the `default` thread after sending this message.
+      convo.addMessage({
+        text: 'Sorry I did not understand. Say `yes` or `no`',
+        action: 'default',
+      },'bad_response');
 
-            convo.activate();
+      // Create a yes/no question in the default thread...
+      convo.ask('Do you like cheese?', [
+        {
+          pattern:  bot.utterances.yes,
+          callback: function(response, convo) {
+            convo.gotoThread('yes_thread');
+          },
+        },
+        {
+          pattern:  bot.utterances.no,
+          callback: function(response, convo) {
+            convo.gotoThread('no_thread');
+          },
+        },
+        {
+          default: true,
+          callback: function(response, convo) {
+            convo.gotoThread('bad_response');
+          },
+        }
+      ]);
 
-            // capture the results of the conversation and see what happened...
-            convo.on('end', function(convo) {
+      convo.activate();
 
-                if (convo.successful()) {
-                    // this still works to send individual replies...
-                    bot.reply(message, 'Let us eat some!');
+      // capture the results of the conversation and see what happened...
+      convo.on('end', function(convo) {
 
-                    // and now deliver cheese via tcp/ip...
-                }
+        if (convo.successful()) {
+          // this still works to send individual replies...
+          bot.reply(message, 'Let us eat some!');
 
-            });
-        });
+          // and now deliver cheese via tcp/ip...
+        }
 
+      });
     });
+
+  });
 
 };
