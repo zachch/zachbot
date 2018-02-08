@@ -15,20 +15,19 @@ module.exports = function(controller) {
         {
           pattern:  bot.utterances.yes,
           callback: function(response, convo) {
-            convo.say(message, 'That\'s not what you said! Try again');
+            convo.say('That\'s not what you said! Try again');
           },
         },
         {
           pattern:  bot.utterances.no,
           callback: function(response, convo) {
-            convo.say(message, 'Umm you are Hannah\'s friend right?');
+            convo.say('Umm you are Hannah\'s friend right?');
           },
         },
         {
           default: true,
           callback: function(response, convo) {
-            convo.say(message, 'That\'s not what you said! Try again');
-            convo.gotoThread('yes_thread');
+            convo.say('That\'s not what you said! Try again');
           },
         }
       ]
