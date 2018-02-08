@@ -6,12 +6,12 @@ Start of the Zachbot conversation
 
 module.exports = function(controller) {
 
-  controller.api.messenger_profile.greeting('');
+  controller.api.messenger_profile.greeting('Zachbot at your service');
   controller.on('facebook_postback', function(bot, message) {
 
     bot.startConversation(message, function(err, convo) {
-      convo.say(message, 'Heyy');
-      convo.ask(message, 'Have we met before?', [
+      convo.say('Heyy');
+      convo.ask('Have we met before?', [
         {
           pattern:  bot.utterances.yes,
           callback: function(response, convo) {
