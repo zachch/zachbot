@@ -16,10 +16,6 @@ module.exports = function(controller) {
 
     });
 
-    controller.on('facebook_postback', function(bot, message) {
-        bot.reply(message, 'Got the postback.');
-    });
-  
     controller.on('sticker_received', function(bot, message) {
         bot.reply(message, 'Cool sticker.');
     });
