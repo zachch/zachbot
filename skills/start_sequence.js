@@ -64,6 +64,7 @@ module.exports = function(controller) {
           callback: function(response, convo) {
             convo.gotoThread('hannah_yes_thread');
          },
+        },
         {
           default: true,
           callback: function(response, convo) {
