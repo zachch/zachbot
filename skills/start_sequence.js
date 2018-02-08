@@ -13,26 +13,25 @@ module.exports = function(controller) {
 
       // create a path for when a user says YES
       convo.addMessage({
-        text: 'You answered yes... that is wrong',
+        text: 'Excuuuseee me. You definitely didn\'t say yes =/. Again!',
       },'yes_thread');
 
       // create a path for when a user says NO
       // mark the conversation as unsuccessful at the end
       convo.addMessage({
-        text: 'You answered no, that is correct',
-        action: 'stop', // this marks the converation as unsuccessful
+        text: '',
+        action: 'stop', // this marks the conversation as unsuccessful
       },'no_thread');
 
       // create a path where neither option was matched
       // this message has an action field, which directs botkit to go back to the `default` thread after sending this message.
       convo.addMessage({
-        text: 'Sorry I did not understand. Say `yes` or `no`',
+        text: 'Ehhhh stick to the script la. Try again!',
         action: 'default',
       },'bad_response');
 
       // Create a yes/no question in the default thread...
-      convo.say('Heyy');
-      convo.ask('Have we met before?', [
+      convo.addQuestion('Heyy... Have we met before?', [
         {
           pattern:  bot.utterances.yes,
           callback: function(response, convo) {
@@ -51,7 +50,7 @@ module.exports = function(controller) {
             convo.gotoThread('bad_response');
           },
         }
-      ]);
+      ], {}, 'default');
 
       convo.activate();
 
