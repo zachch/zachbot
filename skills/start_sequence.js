@@ -12,10 +12,7 @@ module.exports = function(controller) {
     bot.createConversation(message, function(err, convo) {
 
       let met_before_attempt = 1;
-      let met_before_yes_response = 'met_before_yes_default';
-
       let hannah_attempt = 1;
-      let hannah_yes_response = 'hannah_yes_default';
 
       function get_met_before_yes_response(attempt) {
         switch(attempt){
@@ -43,7 +40,7 @@ module.exports = function(controller) {
 
       // Q1. Have we met before question
       convo.addMessage({
-        text: get_met_before_yes_response(met_before_attempt),
+        text: '{{ vars.met_before_yes_response }}',
         action: 'default',
       },'met_before_yes_thread');
 
@@ -57,6 +54,7 @@ module.exports = function(controller) {
           pattern:  bot.utterances.yes,
           callback: function(response, convo) {
             met_before_attempt++;
+            convo.setVar('met_before_yes_response', get_met_before_yes_response(met_before_attempt));
             convo.gotoThread('met_before_yes_thread');
           },
         },
