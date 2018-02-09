@@ -43,7 +43,7 @@ module.exports = function(controller) {
 
       // Q1. Have we met before question
       convo.addMessage({
-        text: met_before_yes_response,
+        text: get_met_before_yes_response(met_before_attempt),
         action: 'default',
       },'met_before_yes_thread');
 
@@ -57,7 +57,6 @@ module.exports = function(controller) {
           pattern:  bot.utterances.yes,
           callback: function(response, convo) {
             met_before_attempt++;
-            met_before_yes_response = get_met_before_yes_response(met_before_attempt);
             convo.gotoThread('met_before_yes_thread');
           },
         },
