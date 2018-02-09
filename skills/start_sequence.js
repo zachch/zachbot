@@ -17,25 +17,27 @@ module.exports = function(controller) {
       function get_met_before_yes_response(attempt) {
         switch(attempt){
           case 1:
-            return 'First';
+            return 'You didn\'t say yes... try again';
           case 2:
-            return 'Second';
+            return 'Eh you definitely didn\'t say yes la. One more time...';
           case 3:
-            return 'Third';
-          case 4:
-            return 'Fourth';
-          case 5:
-            return 'Fifth';
-          case 6:
-            return 'Sixth';
-          case 7:
-            return 'Seventh';
-          case 8:
-            return 'Eighth';
+            return 'Haaa... ok ok. Just answer what you answered that day in the lift. Hint: You said NO';
           default:
             return 'Eh how many times already...'
         }
+      }
 
+      function get_met_before_bad_response(attempt)A{
+        switch(attempt){
+          case 1:
+            return 'Ok relax ah, Zachbot isn\'t that smart. Just reply with yes or no. Try again...';
+          case 2:
+            return 'Ummm, yes or no answer. Second warning. Repeat...';
+          case 3:
+            return 'Dudeeeee.... I\'m a dumb bot (not enough time).. go easy on ne. Yes or no. Here we go again..';
+          default:
+            return 'Eh how many times already...'
+        }
       }
 
       // Q1. Have we met before question
@@ -45,7 +47,7 @@ module.exports = function(controller) {
       },'met_before_yes_thread');
 
       convo.addMessage({
-        text: 'Ehhhh stick to the script la. Try again!',
+        text: 'It\'s a yes or no question! Bot isn\'t smart enough to understand other stuff. Re-try!',
         action: 'default',
       },'met_before_bad_response');
 
@@ -62,6 +64,7 @@ module.exports = function(controller) {
           default: true,
           callback: function(response, convo) {
             met_before_attempt++;
+            convo.setVar('met_before_bad_response', get_met_before_bad_response(met_before_attempt));
             convo.gotoThread('met_before_bad_response');
           },
         },
