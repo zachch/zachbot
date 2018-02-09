@@ -18,9 +18,9 @@ module.exports = function(controller) {
       function get_met_before_yes_response(attempt) {
         switch(attempt){
           case 1:
-            return "You didn't say yes... try again";
+            return "That is not what happened :/ You didnt say yes... try again";
           case 2:
-            return "Eh you definitely didn't say yes la. One more time...";
+            return "Eh you definitely didnt say yes la. One more time...";
           case 3:
             return "Haaa... ok ok. Just answer what you answered that day in the lift. Hint: You said NO";
           default:
@@ -31,11 +31,11 @@ module.exports = function(controller) {
       function get_met_before_bad_response(attempt){
         switch(attempt){
           case 1:
-            return "Ok relax ah, Zachbot isn't that smart. Just reply with yes or no. Try again...";
+            return "Ok relax ah, Zachbot isnt that smart. Just reply with yes or no. Try again...";
           case 2:
             return "Ummm, yes or no answer. Second warning. Repeat...";
           case 3:
-            return "Dudeeeee.... I'm a dumb bot (not enough time).. go easy on ne. Yes or no. Here we go again..";
+            return "Dudeeeee.... I am a dumb bot (not enough time).. give chance la. Yes or no. Here we go again..";
           default:
             return "Eh how many times already..."
         }
