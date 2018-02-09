@@ -43,7 +43,7 @@ module.exports = function(controller) {
 
       // Q1. Have we met before question
       convo.addMessage({
-        text: 'Excuuuseee me. You definitely didn\'t say yes =/. Again!',
+        text: met_before_yes_response,
         action: 'default',
       },'met_before_yes_thread');
 
