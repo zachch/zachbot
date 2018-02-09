@@ -27,7 +27,7 @@ module.exports = function(controller) {
         }
       }
 
-      function get_met_before_bad_response(attempt)A{
+      function get_met_before_bad_response(attempt){
         switch(attempt){
           case 1:
             return 'Ok relax ah, Zachbot isn\'t that smart. Just reply with yes or no. Try again...';
