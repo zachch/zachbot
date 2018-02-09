@@ -11,11 +11,11 @@ module.exports = function(controller) {
 
     bot.createConversation(message, function(err, convo) {
 
-      var met_before_attempt = 1;
-      var met_before_yes_response = 'met_before_yes_default';
+      let met_before_attempt = 1;
+      let met_before_yes_response = 'met_before_yes_default';
 
-      var hannah_attempt = 1;
-      var hannah_yes_response = 'hannah_yes_default';
+      let hannah_attempt = 1;
+      let hannah_yes_response = 'hannah_yes_default';
 
       function get_met_before_yes_response(attempt) {
         switch(attempt){
