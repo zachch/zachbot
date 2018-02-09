@@ -11,7 +11,8 @@ module.exports = function(controller) {
 
     bot.createConversation(message, function(err, convo) {
 
-      let met_before_attempt = 1;
+      let met_before_yes_attempt = 1;
+      let met_before_bad_attempt = 1;
       let hannah_attempt = 1;
 
       function get_met_before_yes_response(attempt) {
@@ -47,7 +48,7 @@ module.exports = function(controller) {
       },'met_before_yes_thread');
 
       convo.addMessage({
-        text: 'It\'s a yes or no question! Bot isn\'t smart enough to understand other stuff. Re-try!',
+        text: '{{ var.met_before_bad_response }}',
         action: 'default',
       },'met_before_bad_response');
 
@@ -55,16 +56,16 @@ module.exports = function(controller) {
         {
           pattern:  bot.utterances.yes,
           callback: function(response, convo) {
-            met_before_attempt++;
-            convo.setVar('met_before_yes_response', get_met_before_yes_response(met_before_attempt));
+            met_before_yes_attempt++;
+            convo.setVar('met_before_yes_response', get_met_before_yes_response(met_before_yes_attempt));
             convo.gotoThread('met_before_yes_thread');
           },
         },
         {
           default: true,
           callback: function(response, convo) {
-            met_before_attempt++;
-            convo.setVar('met_before_bad_response', get_met_before_bad_response(met_before_attempt));
+            met_before_bad_attempt++;
+            convo.setVar('met_before_bad_response', get_met_before_bad_response(met_before_bad_attempt));
             convo.gotoThread('met_before_bad_response');
           },
         },
