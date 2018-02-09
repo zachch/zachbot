@@ -83,9 +83,9 @@ module.exports = function(controller) {
       },'hannah_thread');
 
       convo.addMessage({
-        text: 'YESSSS. Ka Ching!',
+        text: 'DONE',
         action: 'completed',
-      },'hannah_yes_thread');
+      },'hannah_done_thread');
 
       convo.addMessage({
         text: 'Wrong answer la',
@@ -96,7 +96,10 @@ module.exports = function(controller) {
         {
           pattern:  bot.utterances.yes,
           callback: function(response, convo) {
-            convo.gotoThread('hannah_yes_thread');
+            convo.say('Ka ching!');
+            convo.say('When you said yes, I knew I had a chance of getting to know you.');
+            convo.say('So I decided to seize the moment and go for broke and ask you for coffee.');
+            convo.gotoThread('hannah_done_thread');
          },
         },
         {
