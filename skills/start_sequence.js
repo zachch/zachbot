@@ -11,6 +11,36 @@ module.exports = function(controller) {
 
     bot.createConversation(message, function(err, convo) {
 
+      var met_before_attempt = 1;
+      var met_before_yes_response = 'met_before_yes_default';
+
+      var hannah_attempt = 1;
+      var hannah_yes_response = 'hannah_yes_default';
+
+      function get_met_before_yes_response(attempt) {
+        switch(attempt){
+          case 1:
+            return 'First';
+          case 2:
+            return 'Second';
+          case 3:
+            return 'Third';
+          case 4:
+            return 'Fourth';
+          case 5:
+            return 'Fifth';
+          case 6:
+            return 'Sixth';
+          case 7:
+            return 'Seventh';
+          case 8:
+            return 'Eighth';
+          default:
+            return 'Eh how many times already...'
+        }
+
+      }
+
       // Q1. Have we met before question
       convo.addMessage({
         text: 'Excuuuseee me. You definitely didn\'t say yes =/. Again!',
@@ -26,12 +56,15 @@ module.exports = function(controller) {
         {
           pattern:  bot.utterances.yes,
           callback: function(response, convo) {
+            met_before_attempt++;
+            met_before_yes_response = get_met_before_yes_response(met_before_attempt);
             convo.gotoThread('met_before_yes_thread');
           },
         },
         {
           default: true,
           callback: function(response, convo) {
+            met_before_attempt++;
             convo.gotoThread('met_before_bad_response');
           },
         },
@@ -71,6 +104,7 @@ module.exports = function(controller) {
             convo.gotoThread('hannah_bad_response');
           },
         }
+
       ], {},'hannah_thread');
 
 
