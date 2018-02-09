@@ -48,7 +48,7 @@ module.exports = function(controller) {
       },'met_before_yes_thread');
 
       convo.addMessage({
-        text: '{{ var.met_before_bad_response }}',
+        text: '{{ vars.met_before_bad_response }}',
         action: 'default',
       },'met_before_bad_response');
 
