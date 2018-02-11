@@ -91,7 +91,23 @@ module.exports = function(controller) {
 
       convo.addMessage({
         text: 'Haaa.. Hannahs name was the key, and you eventually agreed to coffee with my master.',
+      },'hannah_yes_thread');
+
+      convo.addMessage({
+        text: 'And that was how it all started....',
+      },'hannah_yes_thread');
+
+      convo.addMessage({
+        text: 'Zhi wanted me to tell you, that he cannot believe how happy you make him feel.',
+      },'hannah_yes_thread');
+
+      convo.addMessage({
+        text: 'And he wanted me to ask you...',
+      },'hannah_yes_thread');
+
+      convo.addMessage({
         action: 'completed',
+        text: 'Okay la, look up.. he wants to give you something.',
       },'hannah_yes_thread');
 
       convo.addMessage({
@@ -121,14 +137,8 @@ module.exports = function(controller) {
       // capture the results of the conversation and see what happened...
       convo.on('end', function(convo) {
 
-        convo.say('And that was how it all started....');
-        convo.say('Zhi wanted me to tell you, that he cannot believe how happy you make him feel.');
-        convo.say('And he wanted me to ask you...');
-        convo.say('Okay la, look up.. he wants to give you something.');
-
         if (convo.successful()) {
           // this still works to send individual replies...
-
           // and now deliver cheese via tcp/ip...
         }
 
