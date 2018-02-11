@@ -2,6 +2,47 @@
 
 Start of the Zachbot conversation
 
+Heyy, have we met before?
+No.
+Oh.. you are hannah's friend?
+Yes.
+Yeah I think we met at Zouk a long time ago.
+Let's catch up one day for coffee, can I have your number?
+Sure, here's my name card.
+
+---
+
+Okkayy, so that was when we reconnected. Here's a photo of you on the
+first night we went for beer.
+
+[IMAGE]
+
+Want to see other memories? Just tell me 'More memories'. And when you are done
+say 'I want to make new memories'.
+
+Show random photos
+1. Staycation
+2. First ever 'present' - macs bag
+3. First movie together - ticket stubs
+4.
+
+---
+
+new_memories_thread
+
+Sooo.... Zhi wanted to ask you something...
+Are you ready?
+
+--
+
+Will
+You
+Be
+Zhi's
+Gf?
+[Image]
+
+
 */
 
 module.exports = function(controller) {
@@ -11,44 +52,14 @@ module.exports = function(controller) {
 
     bot.createConversation(message, function(err, convo) {
 
-      let met_before_yes_attempt = 0;
-      let met_before_bad_attempt = 0;
-      let hannah_attempt = 1;
-
-      function get_met_before_yes_response(attempt) {
-        switch(attempt){
-          case 1:
-            return "That is not what happened :/ You didnt say yes... try again";
-          case 2:
-            return "Eh you definitely didnt say yes la. One more time...";
-          case 3:
-            return "Haaa... ok ok. Just answer what you answered that day in the lift. Hint: You said NO";
-          default:
-            return "Eh how many times already..."
-        }
-      }
-
-      function get_met_before_bad_response(attempt){
-        switch(attempt){
-          case 1:
-            return "Ok relax ah, Zachbot isnt that smart. Just reply with yes or no. Try again...";
-          case 2:
-            return "Ummm, yes or no answer. Second warning. Repeat...";
-          case 3:
-            return "Dudeeeee.... I am a dumb bot (not enough time).. give chance la. Yes or no. Here we go again..";
-          default:
-            return "Eh how many times already..."
-        }
-      }
-
       // Q1. Have we met before question
       convo.addMessage({
-        text: '{{ vars.met_before_yes_response }}',
+        text: 'Excuuuseee me. You definitely didn\'t say yes =/. Again!',
         action: 'default',
       },'met_before_yes_thread');
 
       convo.addMessage({
-        text: '{{ vars.met_before_bad_response }}',
+        text: 'Ehhhh stick to the script la. Try again!',
         action: 'default',
       },'met_before_bad_response');
 
@@ -56,16 +67,12 @@ module.exports = function(controller) {
         {
           pattern:  bot.utterances.yes,
           callback: function(response, convo) {
-            met_before_yes_attempt++;
-            convo.setVar('met_before_yes_response', get_met_before_yes_response(met_before_yes_attempt));
             convo.gotoThread('met_before_yes_thread');
           },
         },
         {
           default: true,
           callback: function(response, convo) {
-            met_before_bad_attempt++;
-            convo.setVar('met_before_bad_response', get_met_before_bad_response(met_before_bad_attempt));
             convo.gotoThread('met_before_bad_response');
           },
         },
@@ -79,27 +86,24 @@ module.exports = function(controller) {
 
       // Q2. Hannah's friend question
       convo.addMessage({
-        text: 'Oh...',
+        text: 'Wait...',
       },'hannah_thread');
 
       convo.addMessage({
-        text: 'DONE',
+        text: 'YESSSS. Ka Ching!',
         action: 'completed',
-      },'hannah_done_thread');
+      },'hannah_yes_thread');
 
       convo.addMessage({
         text: 'Wrong answer la',
         action: 'hannah_thread',
       },'hannah_bad_response');
 
-      convo.addQuestion('You are Hannah\'s friend?', [
+      convo.addQuestion('Are you Hannah\'s friend?', [
         {
           pattern:  bot.utterances.yes,
           callback: function(response, convo) {
-            convo.say('Ka ching!');
-            convo.say('When you said yes, I knew I had a chance of getting to know you.');
-            convo.say('So I decided to seize the moment and go for broke and ask you for coffee.');
-            convo.gotoThread('hannah_done_thread');
+            convo.gotoThread('hannah_yes_thread');
          },
         },
         {
@@ -117,11 +121,13 @@ module.exports = function(controller) {
       // capture the results of the conversation and see what happened...
       convo.on('end', function(convo) {
 
-        convo.say(convo.status);
-        convo.say('THE END');
         if (convo.successful()) {
           // this still works to send individual replies...
-          bot.reply(message, 'Let us eat some!');
+          bot.reply(message, 'And that was how it all started....');
+          bot.reply(message, 'Zach wanted me to tell you that he cannot believe');
+          bot.reply(message, 'that he met someone who makes him so happy..');
+          bot.reply(message, '');
+          bot.reply(message, '');
 
           // and now deliver cheese via tcp/ip...
         }
