@@ -48,7 +48,7 @@ Gf?
 module.exports = function(controller) {
 
   controller.api.messenger_profile.greeting('Zachbot at your service');
-  controller.on('facebook_postback', function(bot, message) {
+  controller.hears(['Hi Zach'], 'message_received', function(bot, message) {
 
     bot.createConversation(message, function(err, convo) {
 
