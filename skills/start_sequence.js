@@ -90,7 +90,7 @@ module.exports = function(controller) {
       },'hannah_thread');
 
       convo.addMessage({
-        text: 'YESSSS. Ka Ching!',
+        text: 'Haaa.. Hannahs name was the key, and you eventually agreed to coffee with my master.',
         action: 'completed',
       },'hannah_yes_thread');
 
@@ -123,11 +123,10 @@ module.exports = function(controller) {
 
         if (convo.successful()) {
           // this still works to send individual replies...
-          bot.reply(message, 'And that was how it all started....');
-          bot.reply(message, 'Zach wanted me to tell you that he cannot believe');
-          bot.reply(message, 'that he met someone who makes him so happy..');
-          bot.reply(message, '');
-          bot.reply(message, '');
+          bot.replyWithTyping(message, 'And that was how it all started....');
+          bot.replyWithTyping(message, 'Zhi wanted me to tell you, that he cannot believe how happy you make him feel.');
+          bot.replyWithTyping(message, 'And he wanted me to ask you...');
+          bot.replyWithTyping(message, 'Okay la, look up.. he wants to give you something.');
 
           // and now deliver cheese via tcp/ip...
         }
