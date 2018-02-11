@@ -127,7 +127,7 @@ module.exports = function(controller) {
 
       convo.addMessage({
         action: 'completed',
-        text: 'Okay okay, look up.. he wants to give you something.',
+        text: 'Okay okay, look up if he is in the room, or go look for him.. he wants to give you something.',
       },'hannah_yes_thread');
 
       convo.addMessage({
