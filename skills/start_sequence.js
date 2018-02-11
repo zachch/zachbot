@@ -121,12 +121,13 @@ module.exports = function(controller) {
       // capture the results of the conversation and see what happened...
       convo.on('end', function(convo) {
 
+        convo.say('And that was how it all started....');
+        convo.say('Zhi wanted me to tell you, that he cannot believe how happy you make him feel.');
+        convo.say('And he wanted me to ask you...');
+        convo.say('Okay la, look up.. he wants to give you something.');
+
         if (convo.successful()) {
           // this still works to send individual replies...
-          bot.replyWithTyping(message, 'And that was how it all started....');
-          bot.replyWithTyping(message, 'Zhi wanted me to tell you, that he cannot believe how happy you make him feel.');
-          bot.replyWithTyping(message, 'And he wanted me to ask you...');
-          bot.replyWithTyping(message, 'Okay la, look up.. he wants to give you something.');
 
           // and now deliver cheese via tcp/ip...
         }
